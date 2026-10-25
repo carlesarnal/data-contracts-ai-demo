@@ -9,43 +9,43 @@
 <small>1 / 7</small>
 <h1>The question</h1>
 <p>Your Model Didn&#x27;t Change, Your Input Did: Data Contracts for Streaming AI Pipelines</p>
-<aside class="notes">Explain the evidence, then its boundary. Use the corresponding section in PRESENTATION_GUIDE.md.</aside>
+<aside class="notes">Speaker reference: PRESENTATION_GUIDE.md. Runtime versions and observed results: VERIFICATION.md.</aside>
 </section>
 <section id="slide-2" class="">
 <small>2 / 7</small>
 <h1>One number, two contracts</h1>
 <p>A producer changes duration from 30 seconds to 30,000 milliseconds. The Avro long field can still deserialize perfectly. A consumer interpreting it as seconds receives a value a thousand times larger. The structural contract and the semantic feature contract answer different questions.</p>
-<aside class="notes">Explain the evidence, then its boundary. Use the corresponding section in PRESENTATION_GUIDE.md.</aside>
+<aside class="notes">Speaker reference: PRESENTATION_GUIDE.md. Runtime versions and observed results: VERIFICATION.md.</aside>
 </section>
 <section id="slide-3" class="">
 <small>3 / 7</small>
 <h1>Exercise the actual Registry API</h1>
 <p>The lab creates a unique group and an Avro Duration artifact in Registry 3.3.3, enables BACKWARD compatibility, accepts a defaulted optional addition, then attempts to add a required string without a default. The real API returns HTTP 400 for incompatibility. The script verifies the rejected version is absent and the accepted version content is unchanged.</p>
-<aside class="notes">Explain the evidence, then its boundary. Use the corresponding section in PRESENTATION_GUIDE.md.</aside>
+<aside class="notes">Speaker reference: PRESENTATION_GUIDE.md. Runtime versions and observed results: VERIFICATION.md.</aside>
 </section>
 <section id="slide-4" class="">
 <small>4 / 7</small>
 <h1>Test the semantic invariant separately</h1>
 <p>A deterministic normalization function requires an explicit unit. Both 30 s and 30000 ms must yield 30 seconds. The tests reject unknown units, negative/non-finite values and booleans. This catches an omitted conversion at the model-input boundary without pretending to measure a model-accuracy change. The same fixture can become a CI contract test.</p>
-<aside class="notes">Explain the evidence, then its boundary. Use the corresponding section in PRESENTATION_GUIDE.md.</aside>
+<aside class="notes">Speaker reference: PRESENTATION_GUIDE.md. Runtime versions and observed results: VERIFICATION.md.</aside>
 </section>
 <section id="slide-5" class="">
 <small>5 / 7</small>
 <h1>Do not turn publication checks into broker claims</h1>
 <p>BACKWARD compatibility means a new reader can read old data; it does not guarantee every old reader accepts new writes. A Registry rule governs schema publication, not all bytes sent to Kafka. The demo deliberately has no Kafka producer or model service, so its evidence is limited to real publication behavior and deterministic input semantics. Group deletion is enabled only for the disposable lab cleanup.</p>
-<aside class="notes">Explain the evidence, then its boundary. Use the corresponding section in PRESENTATION_GUIDE.md.</aside>
+<aside class="notes">Speaker reference: PRESENTATION_GUIDE.md. Runtime versions and observed results: VERIFICATION.md.</aside>
 </section>
 <section id="slide-6" class="">
 <small>6 / 7</small>
 <h1>Verification boundary</h1>
 <p>Fresh checks passed: three semantic unit tests; real Registry 3.3.3 compatible publication; HTTP 400 incompatible publication; rejected version absent; accepted content preserved; group cleanup passed after enabling deletion in the disposable lab.</p>
-<aside class="notes">Explain the evidence, then its boundary. Use the corresponding section in PRESENTATION_GUIDE.md.</aside>
+<aside class="notes">Speaker reference: PRESENTATION_GUIDE.md. Runtime versions and observed results: VERIFICATION.md.</aside>
 </section>
 <section id="slide-7" class="">
 <small>7 / 7</small>
 <h1>Takeaways</h1>
 <p>- A workflow combining Avro compatibility checks with feature-input tests<br>- A clear account of where contracts are enforced and where they can be bypassed<br>- A test pattern for schema-compatible changes in units and feature meaning</p>
-<aside class="notes">Explain the evidence, then its boundary. Use the corresponding section in PRESENTATION_GUIDE.md.</aside>
+<aside class="notes">Speaker reference: PRESENTATION_GUIDE.md. Runtime versions and observed results: VERIFICATION.md.</aside>
 </section>
 <nav>
 <button id="prev" aria-label="Previous slide">←</button> <button id="next" aria-label="Next slide">→</button>

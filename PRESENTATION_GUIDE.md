@@ -10,33 +10,33 @@ A producer changes duration from 30 seconds to 30,000 milliseconds. The Avro lon
 
 ### 0:00 — 30 seconds versus 30000 milliseconds
 
-Say: A producer changes duration from 30 seconds to 30,000 milliseconds. The Avro long field can still deserialize perfectly. A consumer interpreting it as seconds receives a value a thousand times larger. The structural contract and the semantic feature contract answer different questions.
+A producer changes duration from 30 seconds to 30,000 milliseconds. The Avro long field can still deserialize perfectly. A consumer interpreting it as seconds receives a value a thousand times larger. The structural contract and the semantic feature contract answer different questions.
 
-Show the corresponding diagram, source record or actual command output. Pause to identify the observation that supports the claim.
+Compare the two duration records and their common normalized value of 30 seconds.
 
-### 4:00 — Avro type stays long
+### 4:00 — Reject an incompatible schema publication
 
-Say: The lab creates a unique group and an Avro Duration artifact in Registry 3.3.3, enables BACKWARD compatibility, accepts a defaulted optional addition, then attempts to add a required string without a default. The real API returns HTTP 400 for incompatibility. The script verifies the rejected version is absent and the accepted version content is unchanged.
+The lab creates a unique group and an Avro Duration artifact in Registry 3.3.3, enables BACKWARD compatibility, accepts a defaulted optional addition, then attempts to add a required string without a default. The real API returns HTTP 400 for incompatibility. The script verifies the rejected version is absent and the accepted version content is unchanged.
 
-Show the corresponding diagram, source record or actual command output. Pause to identify the observation that supports the claim.
+Run demo.py against Registry and inspect the rejected version and preserved accepted content.
 
-### 9:00 — Reject an incompatible publication
+### 9:00 — Check the normalized feature value
 
-Say: A deterministic normalization function requires an explicit unit. Both 30 s and 30000 ms must yield 30 seconds. The tests reject unknown units, negative/non-finite values and booleans. This catches an omitted conversion at the model-input boundary without pretending to measure a model-accuracy change. The same fixture can become a CI contract test.
+A deterministic normalization function requires an explicit unit. Both 30 s and 30000 ms must yield 30 seconds. The tests reject unknown units, negative/non-finite values and booleans. This catches an omitted conversion at the model-input boundary without pretending to measure a model-accuracy change. The same fixture can become a CI contract test.
 
-Show the corresponding diagram, source record or actual command output. Pause to identify the observation that supports the claim.
+Open test_demo.py and the normalization checks, including unknown units and non-finite values.
 
-### 15:00 — Check normalized model input
+### 15:00 — Identify the enforcement boundaries
 
-Say: BACKWARD compatibility means a new reader can read old data; it does not guarantee every old reader accepts new writes. A Registry rule governs schema publication, not all bytes sent to Kafka. The demo deliberately has no Kafka producer or model service, so its evidence is limited to real publication behavior and deterministic input semantics. Group deletion is enabled only for the disposable lab cleanup.
+BACKWARD compatibility means a new reader can read old data; it does not guarantee every old reader accepts new writes. A Registry rule governs schema publication, not all bytes sent to Kafka. The demo deliberately has no Kafka producer or model service, so its evidence is limited to real publication behavior and deterministic input semantics. Group deletion is enabled only for the disposable lab cleanup.
 
-Show the corresponding diagram, source record or actual command output. Pause to identify the observation that supports the claim.
+Identify the Registry publication boundary separately from producer and inference integration.
 
 ### 21:00 — Keep publication and producer enforcement separate
 
-Say: Use the evidence boundary to choose the next action.
+Summarize the decision the example supports and the assumptions behind it.
 
-Show the corresponding diagram, source record or actual command output. Pause to identify the observation that supports the claim.
+Ask which additional semantic invariant the audience would test in its own input pipeline.
 
 ### 26:00 — Questions and buffer
 
